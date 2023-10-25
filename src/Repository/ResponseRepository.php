@@ -2,27 +2,27 @@
 
 namespace App\Repository;
 
-use App\Entity\Response;
+use App\Entity\ResponseQuizz;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Response>
+ * @extends ServiceEntityRepository<ResponseQuizz>
  *
- * @method Response|null find($id, $lockMode = null, $lockVersion = null)
- * @method Response|null findOneBy(array $criteria, array $orderBy = null)
- * @method Response[]    findAll()
- * @method Response[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ResponseQuizz|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ResponseQuizz|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ResponseQuizz[]    findAll()
+ * @method ResponseQuizz[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class ResponseRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Response::class);
+        parent::__construct($registry, ResponseQuizz::class);
     }
 
 //    /**
-//     * @return Response[] Returns an array of Response objects
+//     * @return ResponseQuizz[] Returns an array of ResponseQuizz objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -36,7 +36,7 @@ class ResponseRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Response
+//    public function findOneBySomeField($value): ?ResponseQuizz
 //    {
 //        return $this->createQueryBuilder('r')
 //            ->andWhere('r.exampleField = :val')

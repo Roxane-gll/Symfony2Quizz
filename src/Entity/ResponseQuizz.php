@@ -6,7 +6,7 @@ use App\Repository\ResponseRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ResponseRepository::class)]
-class Response
+class ResponseQuizz
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
