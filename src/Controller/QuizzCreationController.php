@@ -6,7 +6,7 @@ use App\Entity\Quizz;
 use App\Entity\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class QuizzController extends AbstractController
+class QuizzCreationController extends AbstractController
     {
         public function setQuizzForm() : Response
         {
@@ -15,7 +15,7 @@ class QuizzController extends AbstractController
             $quizForm->getTitle();
             $quizForm->getQuestions();
 
-            return $this->render('quizz/quizz.html.twig', [
+            return $this->render('quizz/quizzCreation.html.twig', [
                 'quizForm' => $quizForm
             ]);
         }
