@@ -9,15 +9,13 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: QuizzRepository::class)]
 class Quizz
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $title = null;
+    private int $id ;
 
-    #[ORM\Column(type: Types::ARRAY)]
+
+    private string $title;
+
+
     private array $questions = [];
 
     public function getId(): ?int
