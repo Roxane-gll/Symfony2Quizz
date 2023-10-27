@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>{{ quizz.title }}</h1>
+    <p>
+        {% for question in quizz.questions|sort((a, b) => a.orderQuestion <=> b.orderQuestion) %}
+            <p>{{ question.textQuestion }}</p>
+            <ul>
+                {% for answer in question.responseQuizzs|sort((a, b) => b.id <=> a.id) %}
+                    <li>{{ answer.textResponseQuizz }}</li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
+    </p>
+{% endblock %}

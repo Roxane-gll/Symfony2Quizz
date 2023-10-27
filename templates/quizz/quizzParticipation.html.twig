@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <p>
+    {% for quizz in quizzs %}
+        <p><a href="/quizz/{{ quizz.id }}">{{ quizz.title }}</a></p>
+    {% endfor %}
+    </p>
+{% endblock %}
