@@ -21,9 +21,13 @@ class Quizz
     #[ORM\OneToMany(mappedBy: 'quizz', targetEntity: Question::class)]
     private Collection $questions;
 
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'quizzs')]
+    private Collection $users;
+
     public function __construct()
     {
         $this->questions = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -75,6 +79,33 @@ class Quizz
             if ($question->getQuizz() === $this) {
                 $question->setQuizz(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): static
+    {
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+            $user->addQuizz($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): static
+    {
+        if ($this->users->removeElement($user)) {
+            $user->removeQuizz($this);
         }
 
         return $this;

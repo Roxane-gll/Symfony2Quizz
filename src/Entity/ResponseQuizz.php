@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ResponseQuizzRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ResponseQuizzRepository::class)]
@@ -22,6 +24,14 @@ class ResponseQuizz
     #[ORM\ManyToOne(inversedBy: 'responseQuizzs')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Question $question = null;
+
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'quizzAnswers')]
+    private Collection $users;
+
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -67,6 +77,33 @@ class ResponseQuizz
     public function setQuestion(?Question $question): static
     {
         $this->question = $question;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): static
+    {
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+            $user->addQuizzAnswer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): static
+    {
+        if ($this->users->removeElement($user)) {
+            $user->removeQuizzAnswer($this);
+        }
 
         return $this;
     }
