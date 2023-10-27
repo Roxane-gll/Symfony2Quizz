@@ -11,7 +11,8 @@
         {% endblock %}
     </head>
     <body>
-        <a href="/quizz/create/">create</a>
+        <a href="{{ path('app_quizz_create') }}">create</a>
+        <a href="{{ path('app_quizz_participate') }}">Liste Quizz</a>
         {% block body %}{% endblock %}
     </body>
 </html>

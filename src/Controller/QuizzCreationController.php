@@ -22,7 +22,7 @@ class QuizzCreationController extends AbstractController
             if ($form->isSubmitted() && $form->isValid()) {
                 $entityManager->persist($quizz);
                 $entityManager->flush();
-                return $this->redirectToRoute("app_quizz_participate");
+                return $this->redirectToRoute("app_question_create", ['id' => $quizz->getId()] );
             }
 
             return $this->render('quizz/quizzCreation.html.twig', [

@@ -2,6 +2,7 @@
 
 {% block body %}
     <h1>{{ quizz.title }}</h1>
+    <a href="/quizz/{{ quizz.id }}/question">questiob</a>
     <p>
         {% for question in quizz.questions|sort((a, b) => a.orderQuestion <=> b.orderQuestion) %}
             <p>{{ question.textQuestion }}</p>
