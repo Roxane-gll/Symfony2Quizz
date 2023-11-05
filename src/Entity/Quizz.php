@@ -24,6 +24,9 @@ class Quizz
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'quizzs')]
     private Collection $users;
 
+    #[ORM\ManyToOne(inversedBy: 'createdQuizzs')]
+    private ?User $author = null;
+
     public function __construct()
     {
         $this->questions = new ArrayCollection();
@@ -107,6 +110,18 @@ class Quizz
         if ($this->users->removeElement($user)) {
             $user->removeQuizz($this);
         }
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): static
+    {
+        $this->author = $author;
 
         return $this;
     }

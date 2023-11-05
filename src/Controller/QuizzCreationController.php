@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Quizz;
+use App\Entity\User;
 use App\Form\QuizzFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,9 +18,17 @@ class QuizzCreationController extends AbstractController
         {
             $quizz = new Quizz();
             $form = $this->createForm(QuizzFormType::class, $quizz);
+
+            $user = $this->getUser();
+
+            if ($user instanceof User) {
+                $quizz->setAuthor($user);
+            }
+
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
+
                 $entityManager->persist($quizz);
                 $entityManager->flush();
                 return $this->redirectToRoute("app_question_create", ['id' => $quizz->getId()] );

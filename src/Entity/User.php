@@ -35,10 +35,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: ResponseQuizz::class, inversedBy: 'users')]
     private Collection $quizzAnswers;
 
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Quizz::class)]
+    private Collection $createdQuizzs;
+
     public function __construct()
     {
         $this->quizzs = new ArrayCollection();
         $this->quizzAnswers = new ArrayCollection();
+        $this->createdQuizzs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -155,6 +159,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeQuizzAnswer(ResponseQuizz $quizzAnswer): static
     {
         $this->quizzAnswers->removeElement($quizzAnswer);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Quizz>
+     */
+    public function getCreatedQuizzs(): Collection
+    {
+        return $this->createdQuizzs;
+    }
+
+    public function addCreatedQuizz(Quizz $createdQuizz): static
+    {
+        if (!$this->createdQuizzs->contains($createdQuizz)) {
+            $this->createdQuizzs->add($createdQuizz);
+            $createdQuizz->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCreatedQuizz(Quizz $createdQuizz): static
+    {
+        if ($this->createdQuizzs->removeElement($createdQuizz)) {
+            // set the owning side to null (unless already changed)
+            if ($createdQuizz->getAuthor() === $this) {
+                $createdQuizz->setAuthor(null);
+            }
+        }
 
         return $this;
     }
