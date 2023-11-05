@@ -1,0 +1,41 @@
+{% extends '../base.html.twig' %}
+
+{% block body %}
+    {{ form_start(questionForm) }}
+
+    {{ form_row(questionForm.textQuestion) }}
+
+    <ul class="tags"
+        data-index="{{ questionForm.responses|length > 0 ? questionForm.responses|last.vars.name + 1 : 0 }}"
+        data-prototype="{{ form_widget(questionForm.responses.vars.prototype)|e('html_attr') }}"
+    ></ul>
+    <button type="button" class="add_item_link" data-collection-holder-class="tags">Ajouter une réponse</button>
+
+    {{ form_end(questionForm) }}
+
+    <script>
+        const addFormToCollection = (e) => {
+            console.log('???')
+            const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
+
+            const item = document.createElement('li');
+
+            item.innerHTML = collectionHolder
+                .dataset
+                .prototype
+                .replace(
+                    /__name__/g,
+                    collectionHolder.dataset.index
+                );
+
+            collectionHolder.appendChild(item);
+
+            collectionHolder.dataset.index++;
+        };
+        document
+            .querySelectorAll('.add_item_link')
+            .forEach(btn => {
+                btn.addEventListener("click", addFormToCollection)
+            });
+    </script>
+{% endblock %}

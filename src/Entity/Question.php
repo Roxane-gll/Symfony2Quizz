@@ -24,7 +24,7 @@ class Question
     #[ORM\ManyToOne(inversedBy: 'questions')]
     private ?Quizz $quizz = null;
 
-    #[ORM\OneToMany(mappedBy: 'question', targetEntity: ResponseQuizz::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'question', targetEntity: ResponseQuizz::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $responseQuizzs;
 
     public function __construct()

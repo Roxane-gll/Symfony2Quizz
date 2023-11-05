@@ -2,8 +2,11 @@
 
 {% block body %}
     <p>
+    {{ quizzs|length }}
+    <ul>
     {% for quizz in quizzs %}
-        <p><a href="/quizz/{{ quizz.id }}">{{ quizz.title }}</a></p>
+        <li><a href="/quizz/{{ quizz.id }}">{{ quizz.title }}</a></li>
     {% endfor %}
+    </ul>
     </p>
 {% endblock %}
