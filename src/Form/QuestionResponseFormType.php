@@ -19,7 +19,8 @@ class QuestionResponseFormType extends AbstractType
                 'entry_type' => QuizzResponseFormType::class,
                 'allow_add' => true,
                 'by_reference' => false,
-                'mapped' => false
+                'mapped' => false,
+                'label' => ''
             ])
             ->add('save', SubmitType::class, ['label' => 'Create Question'])
         ;

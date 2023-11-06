@@ -1,5 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {{ form(form) }}
+    <div>
+        {{ form(form) }}
+    </div>
+
+    <div>
+        <a href="{{ path('app_quizz_create') }}">Créé un Quizz</a>
+    </div>
+
 {% endblock %}

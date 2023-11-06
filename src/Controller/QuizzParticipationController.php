@@ -9,6 +9,7 @@ use App\Entity\User;
 use App\Form\QuizzCodeFormType;
 use App\Form\QuizzFormType;
 use App\Form\RegistrationFormType;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,9 +21,26 @@ class QuizzParticipationController extends AbstractController
     #[Route('/quizz/participate', name: 'app_quizz_participate')]
     public function QuizzParticipation(EntityManagerInterface $entityManager) : Response
     {
+        $user = $this->getUser();
         $quizzs = $entityManager->getRepository(Quizz::class)->findAll();
+        $userQuizzs = new ArrayCollection();
+        $otherQuizzs = new ArrayCollection();
+        $authoredQuizzs = new ArrayCollection();
+        foreach ($quizzs as $quizz) {
+            if (in_array($quizz, $user->getQuizzs()->toArray())) {
+                $userQuizzs->add($quizz);
+            } else {
+                $otherQuizzs->add($quizz);
+            }
+            if ($user == $quizz->getAuthor()) {
+                $authoredQuizzs->add($quizz);
+            }
+        }
+
         return $this->render('quizz/quizzParticipation.html.twig', [
-            'quizzs' => $quizzs
+            'userQuizzs' => $userQuizzs,
+            'otherQuizzs' => $otherQuizzs,
+            'authoredQuizzs' => $authoredQuizzs
         ]);
     }
 
@@ -47,6 +65,8 @@ class QuizzParticipationController extends AbstractController
         if ($user instanceof User) {
             $answerId->addUser($user);
             $entityManager->persist($answerId);
+            $user->addQuizz($quizzId);
+            $entityManager->persist($user);
             $entityManager->flush();
         }
 
@@ -70,9 +90,11 @@ class QuizzParticipationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user = $this->getUser();
+
             $quizzCode = $request->request->all()[$form->getName()]['code'];
             $quizz = $entityManager->getRepository(Quizz::class)->find($quizzCode);
-            if ($quizz == null) {
+            if ($quizz == null or in_array($quizz, $user->getQuizzs()->toArray())) {
                 return $this->redirectToRoute('app_quizz_participate');
             }
             $newquestion = 0;

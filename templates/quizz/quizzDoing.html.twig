@@ -2,7 +2,10 @@
 
 {% block body %}
     <h1>{{ quizz.title }}</h1>
-    <a href="/quizz/{{ quizz.id }}/question">Créer une question</a>
+    <p>Code d'accès : {{ quizz.id }}</p>
+    {% if quizz.author == app.user %}
+        <a href="/quizz/{{ quizz.id }}/question">Créer une question</a>
+    {% endif %}
     <p>
         {% for question in quizz.questions|sort((a, b) => a.orderQuestion <=> b.orderQuestion) %}
             <p>{{ question.textQuestion }}</p>

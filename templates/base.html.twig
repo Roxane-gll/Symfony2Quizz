@@ -13,9 +13,14 @@
         {% endblock %}
     </head>
     <body>
-        <a href="{{ path('app_quizz_create') }}">create</a>
-        <a href="{{ path('app_quizz_participate') }}">Liste Quizz</a>
-        <a href="{{ path('app_quizz_export') }}">Exporter la liste de Quizz</a>
+        {% if app.user %}
+            {% if app.request.pathinfo != path('app_quizz_participate') %}
+                <a href="{{ path('app_quizz_participate') }}">Liste Quizz</a>
+            {% endif %}
+            {% if app.request.pathinfo != path('app_quizz_code_doing') %}
+                <a href="{{ path('home') }}">Home</a>
+            {% endif %}
+        {% endif %}
         {% block body %}{% endblock %}
     </body>
 </html>

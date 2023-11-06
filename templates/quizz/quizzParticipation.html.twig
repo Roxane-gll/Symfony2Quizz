@@ -1,12 +1,46 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <p>
-    {{ quizzs|length }}
-    <ul>
-    {% for quizz in quizzs %}
-        <li><a href="/quizz/{{ quizz.id }}">{{ quizz.title }}</a></li>
-    {% endfor %}
-    </ul>
-    </p>
+    <div>
+        <a href="{{ path('app_quizz_export') }}">Exporter la liste de Quizz</a>
+    </div>
+    <div>
+        <p>
+            <div>
+                <p>
+                    Quizzs non remplis
+                </p>
+                {{ otherQuizzs|length }}
+                <ul>
+                    {% for quizz in otherQuizzs %}
+                        <li><a href="/quizz/{{ quizz.id }}">{{ quizz.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div>
+                <p>
+                    Quizzs déjà fait
+                </p>
+                {{ userQuizzs|length }}
+                <ul>
+                {% for quizz in userQuizzs %}
+                    <li><a href="/quizz/{{ quizz.id }}">{{ quizz.title }}</a></li>
+                {% endfor %}
+                </ul>
+            </div>
+
+            <div>
+                <p>
+                    Quizzs que j'ai créé
+                </p>
+                {{ authoredQuizzs|length }}
+                <ul>
+                    {% for quizz in authoredQuizzs %}
+                        <li><a href="/quizz/{{ quizz.id }}">{{ quizz.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </p>
+    </div>
 {% endblock %}
