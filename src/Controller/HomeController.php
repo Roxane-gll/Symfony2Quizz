@@ -17,6 +17,6 @@ class HomeController extends AbstractController
         if ($user instanceof User) {
             return $this->redirectToRoute('app_quizz_code_doing');
         }
-        return $this->redirectToRoute('app_login');
+        return $this->redirectToRoute('app_register');
     }
 }
