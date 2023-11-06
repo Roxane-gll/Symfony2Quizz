@@ -14,6 +14,9 @@
                     <li>{{ answer.textResponseQuizz }}</li>
                 {% endfor %}
             </ul>
+            {% if quizz.author == app.user %}
+                <p><a href="{{ path('app_question_edit', {quizzId: quizz.id, questionId: question.id}) }}">Edit</a></p>
+            {% endif %}
         {% endfor %}
     </p>
 {% endblock %}

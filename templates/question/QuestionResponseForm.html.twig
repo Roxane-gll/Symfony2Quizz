@@ -6,11 +6,14 @@
     {{ form_row(questionForm.textQuestion) }}
 
     <ul class="tags"
-        data-index="{{ questionForm.responses|length > 0 ? questionForm.responses|last.vars.name + 1 : 0 }}"
-        data-prototype="{{ form_widget(questionForm.responses.vars.prototype)|e('html_attr') }}"
+        data-index="{{ questionForm.responseQuizzs|length > 0 ? questionForm.responseQuizzs|last.vars.name + 1 : 0 }}"
+        data-prototype="{{ form_widget(questionForm.responseQuizzs.vars.prototype)|e('html_attr') }}"
     ></ul>
     <button type="button" class="add_item_link" data-collection-holder-class="tags">Ajouter une réponse</button>
 
+    {% if 'edit' in app.request.uri %}
+        {{ form_widget(questionForm.save, { 'label': 'Edit' }) }}
+    {% endif %}
     {{ form_end(questionForm) }}
 
     <script>

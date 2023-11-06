@@ -15,12 +15,10 @@ class QuestionResponseFormType extends AbstractType
     {
         $builder
             ->add('textQuestion')
-            ->add('responses', CollectionType::class, [
+            ->add('responseQuizzs', CollectionType::class, [
                 'entry_type' => QuizzResponseFormType::class,
                 'allow_add' => true,
-                'by_reference' => false,
-                'mapped' => false,
-                'label' => ''
+                'by_reference' => false
             ])
             ->add('save', SubmitType::class, ['label' => 'Create Question'])
         ;
