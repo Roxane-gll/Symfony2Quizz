@@ -21,7 +21,7 @@ class QuestionResponseFormType extends AbstractType
                 'by_reference' => false,
                 'mapped' => false
             ])
-            ->add('save', SubmitType::class, ['label' => 'Create Quizz'])
+            ->add('save', SubmitType::class, ['label' => 'Create Question'])
         ;
     }
 
