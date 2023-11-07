@@ -48,6 +48,10 @@ button {
     text-decoration: none;
     padding: 15px;
 }
+label {
+    background: darkgrey;
+    color:white;
+}
 .formParticipate {
     display: block;
     place-content: center;
@@ -61,8 +65,12 @@ button {
     position: relative;
 
 }
-.form div {
+.formPArticipate-sub {
     padding: 25px;
+    height: 50vh;
+    overflow: auto;
+    margin-top: 50px;
+    border : 1px solid white;
 }
 
 .login {
