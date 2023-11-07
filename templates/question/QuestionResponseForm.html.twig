@@ -1,20 +1,23 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {{ form_start(questionForm) }}
+    <div class="form">
+        {{ form_start(questionForm) }}
 
-    {{ form_row(questionForm.textQuestion) }}
+        {{ form_row(questionForm.textQuestion) }}
 
-    <ul class="tags"
-        data-index="{{ questionForm.responseQuizzs|length > 0 ? questionForm.responseQuizzs|last.vars.name + 1 : 0 }}"
-        data-prototype="{{ form_widget(questionForm.responseQuizzs.vars.prototype)|e('html_attr') }}"
-    ></ul>
-    <button type="button" class="add_item_link" data-collection-holder-class="tags">Ajouter une réponse</button>
+        <ul class="tags"
+            data-index="{{ questionForm.responseQuizzs|length > 0 ? questionForm.responseQuizzs|last.vars.name + 1 : 0 }}"
+            data-prototype="{{ form_widget(questionForm.responseQuizzs.vars.prototype)|e('html_attr') }}"
+        ></ul>
+        <button type="button" class="add_item_link" data-collection-holder-class="tags">Ajouter une réponse à la question</button>
 
-    {% if 'edit' in app.request.uri %}
-        {{ form_widget(questionForm.save, { 'label': 'Edit' }) }}
-    {% endif %}
-    {{ form_end(questionForm) }}
+        {% if 'edit' in app.request.uri %}
+            {{ form_widget(questionForm.save, { 'label': 'Edit' }) }}
+        {% endif %}
+        {{ form_end(questionForm) }}
+    </div>
+
 
     <script>
         const addFormToCollection = (e) => {

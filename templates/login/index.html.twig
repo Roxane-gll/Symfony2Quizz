@@ -7,18 +7,26 @@
         <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
-    <form action="{{ path('app_login') }}" method="post">
-        <label for="username">Email:</label>
-        <input type="text" id="username" name="_username" value="{{ last_username }}">
+    <div class="form login">
+        <div>
+            <h1>Bravo, vous voilà dans l'espace de connexion </h1>
+            <h2>( <a href="{{ path('app_register') }}">
+                    oups, je ne suis pas inscrit.e</a> )</h2>
+            <p>Renseignez votre email et votre mot de passe.</p>
+            <form  action="{{ path('app_login') }}" method="post">
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="_password">
+                <div>
+                    <label for="username">Email:</label>
+                    <input type="text" id="username" name="_username" value="{{ last_username }}">
 
-        <button type="submit">login</button>
-    </form>
+                    <label for="password">Mot de passe:</label>
+                    <input type="password" id="password" name="_password" >
 
-    <div>
-        <a href="{{ path('app_register') }}">Creation de compte</a>
+                    <button type="submit">Entrer</button>
+                </div>
+
+
+            </form>
+        </div>
     </div>
-
 {% endblock %}

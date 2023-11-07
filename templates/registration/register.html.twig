@@ -2,15 +2,19 @@
 {% form_theme registrationForm 'bootstrap_5_layout.html.twig' %}
 
 {% block body %}
-    <div>
+    <iframe src='https://my.spline.design/untitled-ceeda2c58544caaa98e1fab9c66be47f/' frameborder='0' width='100%' height='100%'></iframe>
+    <div class="form login">
         <div>
-            <h1>S’inscrire</h1>
-            <p>Remplissez le formulaire d'inscription ci-dessous.</p>
+            <h1>Pour commencer, inscrivez-vous <br></h1>
+               <h2> Puis <a href="{{ path('app_login') }}">
+                    connectez-vous</a> à votre compte</h2>
+
+            <p>Renseignez votre email et votre mot de passe.</p>
 
             {{ form_start(registrationForm) }}
             {{ form_row(registrationForm.email) }}
             {{ form_row(registrationForm.plainPassword, {
-                label: 'Password'
+                label: 'Mot de passe'
             }) }}
             {{ form_end(registrationForm) }}
 
@@ -22,4 +26,5 @@
             </div>
         </div>
     </div>
+    <div class="iframeFooter"></div>
 {% endblock %}

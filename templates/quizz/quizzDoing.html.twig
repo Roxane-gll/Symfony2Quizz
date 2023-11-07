@@ -1,13 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>{{ quizz.title }}</h1>
-    <p>Code d'accès : {{ quizz.id }}</p>
-    {% if quizz.author == app.user %}
-        <a href="/quizz/{{ quizz.id }}/question">Créer une question</a>
-    {% endif %}
-    <p>
-        {% for question in quizz.questions|sort((a, b) => a.orderQuestion <=> b.orderQuestion) %}
+    <div class="form">
+        <div>
+            <h1>{{ quizz.title }}</h1>
+            <p>Code d'accès : {{ quizz.id }}</p>
+            {% if quizz.author == app.user %}
+                <a href="/quizz/{{ quizz.id }}/question">Créer une nouvelle question</a>
+            {% endif %}
+            <p>
+                {% for question in quizz.questions|sort((a, b) => a.orderQuestion <=> b.orderQuestion) %}
             <p>{{ question.textQuestion }}</p>
             <ul>
                 {% for answer in question.responseQuizzs|sort((a, b) => b.id <=> a.id) %}
@@ -15,8 +17,13 @@
                 {% endfor %}
             </ul>
             {% if quizz.author == app.user %}
-                <p><a href="{{ path('app_question_edit', {quizzId: quizz.id, questionId: question.id}) }}">Edit</a></p>
+                <p><a href="{{ path('app_question_edit', {quizzId: quizz.id, questionId: question.id}) }}">Modifier la question</a></p>
             {% endif %}
-        {% endfor %}
-    </p>
+            {% endfor %}
+            </p>
+        </div>
+
+    </div>
+
+
 {% endblock %}

@@ -1,14 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div>
-        <a href="{{ path('app_quizz_export') }}">Exporter la liste de Quizz</a>
-    </div>
-    <div>
-        <p>
+    <div class="formParticipate">
+        <div class="exportListeCsv">
+            <a href="{{ path('app_quizz_export') }}">Exporter la liste de Quiz en csv</a>
+        </div>
+        <div class="form">
+            <p>
             <div>
                 <p>
-                    Quizzs non remplis
+                    Liste des quiz non remplis
                 </p>
                 {{ otherQuizzs|length }}
                 <ul>
@@ -20,19 +21,19 @@
 
             <div>
                 <p>
-                    Quizzs déjà fait
+                    Liste des quiz déjà faits
                 </p>
                 {{ userQuizzs|length }}
                 <ul>
-                {% for quizz in userQuizzs %}
-                    <li><a href="/quizz/{{ quizz.id }}">{{ quizz.title }}</a></li>
-                {% endfor %}
+                    {% for quizz in userQuizzs %}
+                        <li><a href="/quizz/{{ quizz.id }}">{{ quizz.title }}</a></li>
+                    {% endfor %}
                 </ul>
             </div>
 
             <div>
                 <p>
-                    Quizzs que j'ai créé
+                    Liste des quiz que j'ai créés
                 </p>
                 {{ authoredQuizzs|length }}
                 <ul>
@@ -41,6 +42,9 @@
                     {% endfor %}
                 </ul>
             </div>
-        </p>
+            </p>
+        </div>
     </div>
+
+
 {% endblock %}
